@@ -78,9 +78,9 @@ def main():
 if __name__ == '__main__':
     global args
     start_time = time.time()
-    parser = argparse.ArgumentParser(description="""@TODO""")  # @TODO Give a clear description of the script.
+    #parser = argparse.ArgumentParser(description="""@TODO""")  # @TODO Give a clear description of the script.
     #parser.add_argument('IN', type=str, help="INPUT")
     #parser.add_argument('OUT', type=str, help="OUTPUT")
-    args = parser.parse_args()
+    #args = parser.parse_args()
     main()
     print("--- Finished in " + str(int(time.time() - start_time)) + " seconds ---")

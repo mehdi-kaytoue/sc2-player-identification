@@ -14,7 +14,8 @@ def main(args):
             actions = trace.split(",")
             urls += [actions[0]]
             races += [actions[1]]
-            actions = actions[2:]         # @todo cut at the desired txxx seconds
+            if "t"+str(args.MAX_SEC) in actions: actions = actions[:actions.index("t"+str(args.MAX_SEC))]
+            actions = actions[2:]
             actions = [a for a in actions if not a[0]=="t"]
             dico = Counter(actions)
             features += [dico]
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="""@TODO""")  # @TODO Give a clear description of the script.
     parser.add_argument('IN', type=str, help="INPUT")
     parser.add_argument('OUT', type=str, help="OUTPUT")
+    parser.add_argument('MAX_SEC', type=int, help="MAX_SEC")
     args = parser.parse_args()
     main(args)
     print("--- Finished in " + str(int(time.time() - start_time)) + " seconds ---")
