@@ -7,10 +7,6 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from sklearn import tree
 from collections import Counter
-import time, argparse
-
-
-global args # Program arguments, global variable
 
 
 def encode_target(df, target_column):
@@ -47,12 +43,12 @@ def remove_unpopulated_classes(_df, target_column, threshold):
     return _df
 
 
-def main():
-    global args
-    df = pd.read_csv("replay-features.txt")
+def learn(inputfile, minlabels):
+
+    df = pd.read_csv(inputfile)
     df2, _ = encode_target(df, "battleneturl")
     df3, _ = encode_target(df2, "race")
-    df4 = remove_unpopulated_classes(df3, "battleneturl", 20)
+    df4 = remove_unpopulated_classes(df3, "battleneturl", minlabels)
     train_data = df4.values
     target = train_data[:, -1:].ravel()
     features = train_data[:, :-1]
@@ -67,20 +63,11 @@ def main():
     print(score)
 
     # 5 Cross validation
-    model = RandomForestClassifier(max_features=None)
-    print(model.get_params())
-    scores = cross_validation.cross_val_score(model, features, target, cv=5, scoring='accuracy')
-    print("accuracy: ", scores)
-    scores = cross_validation.cross_val_score(model, features, target, cv=5, scoring='precision_micro')
-    print("precision:", scores)
+    #model = RandomForestClassifier(max_features=None)
+    #print(model.get_params())
+    #scores = cross_validation.cross_val_score(model, features, target, cv=5, scoring='accuracy')
+    #print("accuracy: ", scores)
+    #scores = cross_validation.cross_val_score(model, features, target, cv=5, scoring='precision_micro')
+    #print("precision:", scores)
 
-
-if __name__ == '__main__':
-    global args
-    start_time = time.time()
-    #parser = argparse.ArgumentParser(description="""@TODO""")  # @TODO Give a clear description of the script.
-    #parser.add_argument('IN', type=str, help="INPUT")
-    #parser.add_argument('OUT', type=str, help="OUTPUT")
-    #args = parser.parse_args()
-    main()
-    print("--- Finished in " + str(int(time.time() - start_time)) + " seconds ---")
+    return score
